@@ -44,14 +44,22 @@
         >
 
         <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="290dp"
             android:layout_height="wrap_content"
             android:background="@drawable/custom_profile"
             android:drawableLeft="@drawable/ic_id_card"
-            android:drawablePadding="10dp"/>
+            android:drawablePadding="20dp"
+            android:layout_gravity="center"
+
+            />
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_width="290dp"
+        android:layout_gravity="center"
         android:layout_height="wrap_content"
         android:id="@+id/fullNamep"
         android:background="@color/background"
@@ -73,7 +81,10 @@
         >
 
         <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="290dp"
+            android:layout_gravity="center"
             android:layout_height="wrap_content"
             android:background="@drawable/custom_profile"
             android:drawableLeft="@drawable/ic_gender_symbols"
@@ -87,7 +98,10 @@
         >
 
         <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="290dp"
+            android:layout_gravity="center"
             android:layout_height="wrap_content"
             android:background="@drawable/custom_profile"
             android:drawableLeft="@drawable/ic_phone_call2"
@@ -102,7 +116,10 @@
         >
 
         <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="290dp"
+            android:layout_gravity="center"
             android:layout_height="wrap_content"
             android:background="@drawable/custom_profile"
             android:drawablePadding="10dp"
@@ -117,7 +134,10 @@
         >
 
         <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="290dp"
+            android:layout_gravity="center"
             android:layout_height="wrap_content"
             android:background="@drawable/custom_profile"
             android:drawablePadding="10dp"

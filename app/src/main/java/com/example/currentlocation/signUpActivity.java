@@ -5,16 +5,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.telephony.SmsManager;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
@@ -30,13 +35,18 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
 public class signUpActivity extends AppCompatActivity {
+
     private EditText signUpEmailEditText, signUpPasswordEditText;
     private EditText Fullname;
-    private EditText dateOfbirth;
+
+    private TextView dateOfbirth;
+    private DatePickerDialog.OnDateSetListener mDateSetListener;
+
     private EditText MobileNumber;
     private EditText userName;
     private RadioGroup radiogroup1;
@@ -63,7 +73,38 @@ public class signUpActivity extends AppCompatActivity {
         TextView signInTextView = findViewById(R.id.SignInTextViewID2);
 
         Fullname=findViewById(R.id.fullNameID);
-        dateOfbirth=findViewById(R.id.dateOfBirthID);
+        dateOfbirth=(TextView)findViewById(R.id.dateOfBirthID);
+
+        dateOfbirth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar cal = Calendar.getInstance();
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog dialog = new DatePickerDialog(
+                        signUpActivity.this,
+                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                        mDateSetListener,
+                        year,month,day);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+            }
+        });
+        mDateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                month = month + 1;
+                String TAG =" ";
+                Log.d(TAG, "onDateSet: mm/dd/yyy: " + month + "/" + day + "/" + year);
+
+                String date = month + "/" + day + "/" + year;
+                dateOfbirth.setText(date);
+            }
+        };
+
+
         MobileNumber=findViewById(R.id.mobileID);
         userName=findViewById(R.id.userNameID);
 
@@ -77,14 +118,16 @@ public class signUpActivity extends AppCompatActivity {
         Button signUpButton;
         signUpButton = findViewById(R.id.SignUpButtonIID);
 
+
     }
     public void signUp(View view)
     {
         rootnode = FirebaseDatabase.getInstance();
         reference = rootnode.getReference("User");
 
-        String fullname=Fullname.getText().toString().trim();
         String dateofbirth=dateOfbirth.getText().toString().trim();
+        String fullname=Fullname.getText().toString().trim();
+
         String mobileNumber=MobileNumber.getText().toString().trim();
         String username=userName.getText().toString().trim();
         String email2= signUpEmailEditText.getText().toString().trim();

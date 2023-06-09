@@ -27,7 +27,7 @@
         android:text="Help Us Gathering Crime Information:"
         android:textSize="30dp"
         android:textColor="@color/paste"
-        android:fontFamily="@font/contrail_one"/>
+      />
     <EditText
         android:id="@+id/dateOfBirthID"
         android:hint="Type of Crime"

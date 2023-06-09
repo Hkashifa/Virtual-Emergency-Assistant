@@ -31,7 +31,7 @@
                 android:textColor="@color/paste"
                 android:autofillHints=""
                 android:fontFamily="@font/contrail_one"/>
-            <EditText
+            <TextView
                 android:id="@+id/dateOfBirthID"
                 android:hint="@string/date_of_birth"
                 android:layout_width="match_parent"

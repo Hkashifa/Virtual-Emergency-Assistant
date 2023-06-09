@@ -19,38 +19,41 @@
             android:orientation="vertical">
 
 
-
             <EditText
+                android:id="@+id/fullNameIDv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/fullNameIDv"
+                android:autofillHints=""
+                android:fontFamily="@font/contrail_one"
+                android:hint="@string/full_name"
                 android:inputType="text"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-                android:hint="@string/full_name"
-                android:textColorHint="@color/teal_700"
                 android:textColor="@color/paste"
-                android:autofillHints=""
-                android:fontFamily="@font/contrail_one"/>
+                android:textColorHint="#0097A7" />
+
             <EditText
                 android:id="@+id/dateOfBirthIDv"
-                android:hint="@string/date_of_birth"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints=""
                 android:fontFamily="@font/contrail_one"
+                android:hint="@string/date_of_birth"
                 android:inputType="date"
+                android:minHeight="48dp"
                 android:textColor="@color/paste"
-                android:textColorHint="@color/teal_700"/>
+                android:textColorHint="#0097A7" />
+
             <EditText
                 android:id="@+id/mobileIDv"
-                android:hint="@string/mobile_number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints=""
                 android:fontFamily="@font/contrail_one"
+                android:hint="@string/mobile_number"
                 android:inputType="number"
+                android:minHeight="48dp"
                 android:textColor="@color/paste"
-                android:textColorHint="@color/teal_700"/>
+                android:textColorHint="#0097A7" />
 
 
             <RadioGroup
@@ -66,7 +69,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/gender"
-                    android:layout_marginLeft="12dp"
+                    android:layout_marginStart="12dp"
                     android:textColor="@color/paste"
                     android:textSize="20sp"
                     android:fontFamily="@font/contrail_one"
@@ -75,8 +78,8 @@
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10sp"
-                    android:text="Male"
+                    android:layout_marginStart="10sp"
+                    android:text="@string/male"
                     android:textSize="20sp"
                     android:fontFamily="@font/contrail_one"
                     android:textColor="@color/paste"
@@ -87,7 +90,7 @@
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
                     android:text="Female"
                     android:textSize="20sp"
                     android:textColor="@color/paste"
@@ -111,7 +114,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="User Type"
-                    android:layout_marginLeft="12dp"
+                    android:layout_marginStart="12dp"
                     android:textColor="@color/paste"
                     android:textSize="20sp"
                     android:fontFamily="@font/contrail_one"
@@ -120,7 +123,7 @@
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10sp"
+                    android:layout_marginStart="10sp"
                     android:text="User"
                     android:textSize="20sp"
                     android:textColor="@color/paste"
@@ -132,7 +135,7 @@
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
                     android:text="Volunteer"
                     android:textSize="20sp"
                     android:textColor="@color/paste"
@@ -153,39 +156,41 @@
 
 
             <EditText
-                android:padding="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:id="@+id/userNameIDv"
-                android:inputType="text"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-                android:hint="@string/user_name"
-                android:textColorHint="@color/teal_700"
-                android:textColor="@color/paste"
-                android:autofillHints=""
-                android:fontFamily="@font/contrail_one"/>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/signUpEmailEditTextIDv"
-                android:inputType="textEmailAddress"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-                android:hint="@string/email"
-                android:textColorHint="@color/teal_700"
-                android:textColor="@color/paste"
-                android:autofillHints=""
-                android:fontFamily="@font/contrail_one"/>
-            <EditText
-                android:id="@+id/signUpPasswordEditTextIDv"
-                android:hint="@string/confirm_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints=""
                 android:fontFamily="@font/contrail_one"
-                android:inputType= "textPassword"
+                android:hint="@string/user_name"
+                android:inputType="text"
+                android:padding="10dp"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
                 android:textColor="@color/paste"
-                android:textColorHint="@color/teal_700" />
+                android:textColorHint="#0097A7" />
+
+            <EditText
+                android:id="@+id/signUpEmailEditTextIDv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints=""
+                android:fontFamily="@font/contrail_one"
+                android:hint="@string/email"
+                android:inputType="textEmailAddress"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                android:textColor="@color/paste"
+                android:textColorHint="#0097A7" />
+
+            <EditText
+                android:id="@+id/signUpPasswordEditTextIDv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints=""
+                android:fontFamily="@font/contrail_one"
+                android:hint="@string/confirm_password"
+                android:inputType="textPassword"
+                android:minHeight="48dp"
+                android:textColor="@color/paste"
+                android:textColorHint="#0097A7" />
 
 
             <Button
