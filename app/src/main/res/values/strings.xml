@@ -33,4 +33,7 @@
     <string name="username">Username</string>
     <string name="email1">Email</string>
     <string name="title_activity_maps">Map</string>
+    <string name="emergency_button">Emergency Button</string>
+    <string name="muserm">MUSER IS NOT NULL</string>
+    <string name="m">Something</string>
 </resources>

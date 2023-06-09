@@ -91,7 +91,7 @@ public class emergencyButton extends AppCompatActivity implements NavigationView
                         "Alert Sent", Toast.LENGTH_SHORT).show();
                 ActivityCompat.requestPermissions(emergencyButton.this, new String[]{Manifest.permission.SEND_SMS}, PackageManager.PERMISSION_GRANTED);
                 ActivityCompat.requestPermissions(emergencyButton.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, PackageManager.PERMISSION_GRANTED);
-
+                getLocation();
                /* if (ActivityCompat.checkSelfPermission(emergencyButton.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(emergencyButton.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     // TODO: Consider calling
                     //    ActivityCompat#requestPermissions
@@ -129,14 +129,15 @@ public class emergencyButton extends AppCompatActivity implements NavigationView
                 /*MapData mapData = new MapData("23.7453736", "90.38524609999");
                 reference.child("dhanmondi").setValue(mapData);*/
 
-                getLocation();
+
             }
         });
     }
 
 
     private void getLocation() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
@@ -199,31 +200,7 @@ public class emergencyButton extends AppCompatActivity implements NavigationView
                             }
                         });
 
-                                /*reference.addListenerForSingleValueEvent(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(DataSnapshot dataSnapshot) {
-                                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                            User user = snapshot.getValue(User.class);
-                                            if(user.getUsertype() == "Volunteer")
-                                            {
-                                                String phoneNumber = "88" + user.getMobilenumber();
-                                                String dangerMessage = "**User is in DANGER**\n";
-                                                String link = "\nLink = https://www.google.com/maps/search/?api=1&query="
-                                                        +addresses.get(0).getLatitude() + "," + addresses.get(0).getLongitude();
-                                                String message = dangerMessage + "Address = " + addresses.get(0).getAddressLine(0) +
-                                                        "\nLocality = " + addresses.get(0).getLocality() +
-                                                        "\nCountry = " + addresses.get(0).getCountryName() +
-                                                        "\nLatitude = " + addresses.get(0).getLatitude() +
-                                                        "\nLongitude = " + addresses.get(0).getLongitude() + link;
-                                                SmsManager smsManager = SmsManager.getDefault();
-                                                smsManager.sendTextMessage(phoneNumber, null, message, null, null);
-                                            }
-                                            }
-                                    }
-                                    @Override
-                                    public void onCancelled(DatabaseError databaseError) {
-                                    }
-                                });*/
+                                
 
 
                     } catch (IOException e) {
