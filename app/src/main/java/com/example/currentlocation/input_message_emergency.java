@@ -36,8 +36,8 @@ public class input_message_emergency extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()) {
-                    String eContact1FromDB = snapshot.child(username).child("emergencyContct1").getValue(String.class);
-                    String phoneNumber = "88" + eContact1FromDB;
+                    String eContact1FromDB = snapshot.child(username).child("emergencyContact1").getValue(String.class);
+                    String phoneNumber = "+88" + eContact1FromDB;
                     InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
                             InputMethodManager.HIDE_NOT_ALWAYS);
@@ -49,7 +49,8 @@ public class input_message_emergency extends AppCompatActivity {
                             "Message Sent", Toast.LENGTH_SHORT).show();
                 }
                 else {
-
+                    Toast.makeText(input_message_emergency.this,
+                            "Unable to send message", Toast.LENGTH_SHORT).show();
                 }
             }
 

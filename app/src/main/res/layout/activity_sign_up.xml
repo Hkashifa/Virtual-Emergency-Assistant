@@ -30,16 +30,19 @@
                 android:textColorHint="@color/teal_700"
                 android:textColor="@color/paste"
                 android:autofillHints=""
-                android:fontFamily="@font/contrail_one"/>
+                android:textSize="23sp"
+
+                />
             <TextView
                 android:id="@+id/dateOfBirthID"
                 android:hint="@string/date_of_birth"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:autofillHints=""
-                android:fontFamily="@font/contrail_one"
-                android:inputType="date"
+
+
+                android:textSize="23sp"
                 android:textColor="@color/paste"
+
                 android:textColorHint="@color/teal_700"/>
             <EditText
                 android:id="@+id/mobileID"
@@ -47,7 +50,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints=""
-                android:fontFamily="@font/contrail_one"
+                android:textSize="23sp"
                 android:inputType="number"
                 android:textColor="@color/paste"
                 android:textColorHint="@color/teal_700"/>
@@ -68,8 +71,8 @@
                     android:text="@string/gender"
                     android:layout_marginLeft="12dp"
                     android:textColor="@color/paste"
-                    android:textSize="20sp"
-                    android:fontFamily="@font/contrail_one"
+                    android:textSize="23sp"
+
                     />
 
                 <RadioButton
@@ -77,8 +80,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10sp"
                     android:text="Male"
-                    android:textSize="20sp"
-                    android:fontFamily="@font/contrail_one"
+                    android:textSize="23sp"
+
                     android:textColor="@color/paste"
                     android:id="@+id/maleradioid"
                     android:buttonTint="@color/paste"
@@ -93,7 +96,7 @@
                     android:textColor="@color/paste"
                     android:id="@+id/femaleradioid"
                     android:buttonTint="@color/paste"
-                    android:fontFamily="@font/contrail_one"
+
                     />
 
             </RadioGroup>
@@ -113,8 +116,8 @@
                     android:text="User Type"
                     android:layout_marginLeft="12dp"
                     android:textColor="@color/paste"
-                    android:textSize="20sp"
-                    android:fontFamily="@font/contrail_one"
+                    android:textSize="23sp"
+
                     />
 
                 <RadioButton
@@ -122,10 +125,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10sp"
                     android:text="User"
-                    android:textSize="20sp"
+                    android:textSize="23sp"
                     android:textColor="@color/paste"
                     android:id="@+id/userradioid"
-                    android:fontFamily="@font/contrail_one"
+
                     android:buttonTint="@color/paste"
                     />
 
@@ -134,10 +137,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:text="Volunteer"
-                    android:textSize="20sp"
+                    android:textSize="23sp"
                     android:textColor="@color/paste"
                     android:id="@+id/volunteerradioid"
-                    android:fontFamily="@font/contrail_one"
+
                     android:buttonTint="@color/paste"
                     />
 
@@ -163,7 +166,8 @@
                 android:textColorHint="@color/teal_700"
                 android:textColor="@color/paste"
                 android:autofillHints=""
-                android:fontFamily="@font/contrail_one"/>
+                android:textSize="23sp"
+               />
 
             <EditText
                 android:layout_width="match_parent"
@@ -175,35 +179,41 @@
                 android:textColorHint="@color/teal_700"
                 android:textColor="@color/paste"
                 android:autofillHints=""
-                android:fontFamily="@font/contrail_one"/>
+               />
             <EditText
+
                 android:id="@+id/signUpPasswordEditTextID"
                 android:hint="@string/confirm_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints=""
-                android:fontFamily="@font/contrail_one"
+
                 android:inputType= "textPassword"
                 android:textColor="@color/paste"
+                android:textSize="23sp"
                 android:textColorHint="@color/teal_700" />
 
             <EditText
                 android:id="@+id/emergencyContact1"
                 android:hint="Emergency Contact 1"
+                android:textSize="23sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints=""
-                android:fontFamily="@font/contrail_one"
+
                 android:inputType= "number"
                 android:textColor="@color/paste"
-                android:textColorHint="@color/teal_700" />
+                android:textColorHint="@color/teal_700"
+                />
             <EditText
+
+                android:textSize="23sp"
                 android:id="@+id/emergencyContact2"
                 android:hint="Emergency Contact 2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints=""
-                android:fontFamily="@font/contrail_one"
+
                 android:inputType= "number"
                 android:textColor="@color/paste"
                 android:textColorHint="@color/teal_700" />
@@ -216,20 +226,22 @@
                 android:layout_marginTop="20dp"
                 android:text="@string/sign_up"
                 android:textColor="@color/black"
-                android:fontFamily="@font/contrail_one"
+
                 app:backgroundTint="@color/paste"
                 android:onClick="signUp"/>
 
-            <Button
+            <TextView
                 android:id="@+id/SignInTextViewID2"
-                style="@style/Base.Widget.AppCompat.Button.Colored"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="@string/sign_in2"
-                android:textColor="@color/black"
-                android:fontFamily="@font/contrail_one"
-                app:backgroundTint="@color/paste" />
+                android:text="Have an account? Sign In"
+                android:layout_marginLeft="12dp"
+                android:layout_gravity="center"
+                android:textColor="@color/paste"
+                android:textSize="23sp"
+
+                />
+
 
 
 

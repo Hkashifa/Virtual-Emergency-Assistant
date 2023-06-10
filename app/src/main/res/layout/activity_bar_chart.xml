@@ -33,7 +33,7 @@
         android:backgroundTint="@color/paste"
         android:layout_marginEnd="127dp"
         android:textColor="@color/background"
-        android:fontFamily="@font/contrail_one"
+
         android:text="Refresh Graph" />
 
 </RelativeLayout>

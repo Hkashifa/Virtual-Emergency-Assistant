@@ -13,10 +13,9 @@ import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
-import android.net.Uri;
 import android.os.Bundle;
 import android.telephony.SmsManager;
-import android.view.KeyEvent;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -24,7 +23,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
-import com.example.currentlocation.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -35,19 +33,17 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.NavigableMap;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import static android.app.ProgressDialog.show;
 
+import android.content.Context;
 public class emergencyButton extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     DrawerLayout drawLayout;
     ActionBarDrawerToggle toggle;
@@ -55,12 +51,13 @@ public class emergencyButton extends AppCompatActivity implements NavigationView
     FusedLocationProviderClient fusedLocationProviderClient;
     Toolbar toolbar;
     TextView phone_Call;
-    int count;
+    int count = 0;
     FirebaseDatabase rootnode;
     DatabaseReference reference;
     String latitude = "";
     String longitude = "";
-
+    private String[] PERMISSIONS;
+    public static final String TAG = "MainActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +70,13 @@ public class emergencyButton extends AppCompatActivity implements NavigationView
         drawLayout.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+        PERMISSIONS = new String[] {
+
+                Manifest.permission.SEND_SMS,
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+        };
+
         //navigationView.setCheckedItem(R.id.navV);
         /*getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         final NavigationView navView = (NavigationView) findViewById(R.id.navV);
@@ -85,12 +89,20 @@ public class emergencyButton extends AppCompatActivity implements NavigationView
         Button emergencyButton = (Button) findViewById(R.id.button);
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         emergencyButton.setOnClickListener(new View.OnClickListener() {
+
             @Override
+
+
             public void onClick(View view) {
                 Toast.makeText(emergencyButton.this,
                         "Alert Sent", Toast.LENGTH_SHORT).show();
-                ActivityCompat.requestPermissions(emergencyButton.this, new String[]{Manifest.permission.SEND_SMS}, PackageManager.PERMISSION_GRANTED);
-                ActivityCompat.requestPermissions(emergencyButton.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, PackageManager.PERMISSION_GRANTED);
+
+                if (!hasPermissions(emergencyButton.this,PERMISSIONS)) {
+
+                    ActivityCompat.requestPermissions(emergencyButton.this,PERMISSIONS,1);
+                }
+
+
                 getLocation();
                /* if (ActivityCompat.checkSelfPermission(emergencyButton.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(emergencyButton.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     // TODO: Consider calling
@@ -133,18 +145,57 @@ public class emergencyButton extends AppCompatActivity implements NavigationView
             }
         });
     }
+    private boolean hasPermissions(Context context, String... PERMISSIONS) {
+
+        if (context != null && PERMISSIONS != null) {
+
+            for (String permission: PERMISSIONS){
+
+                if (ActivityCompat.checkSelfPermission(context,permission) != PackageManager.PERMISSION_GRANTED) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == 1) {
+
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "SMS Permission is granted", Toast.LENGTH_SHORT).show();
+                getLocation();
+            } else {
+                Toast.makeText(this, "SMS Permission is denied", Toast.LENGTH_SHORT).show();
+            }
+
+            if (grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "Fine Location Permission is granted", Toast.LENGTH_SHORT).show();
+                getLocation();
+            } else {
+                Toast.makeText(this, "Fine Location Permission is denied", Toast.LENGTH_SHORT).show();
+            }
+
+            if (grantResults[2] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "Fine Location is granted", Toast.LENGTH_SHORT).show();
+                getLocation();
+            } else {
+                Toast.makeText(this, "Fine Location Permission is denied", Toast.LENGTH_SHORT).show();
+            }
 
 
+        }
+    }
     private void getLocation() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
+
             return;
         }
 
@@ -167,10 +218,13 @@ public class emergencyButton extends AppCompatActivity implements NavigationView
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 if(snapshot.exists()) {
                                     String eContact1FromDB = snapshot.child(username).child("emergencyContct1").getValue(String.class);
-                                    String phoneNumber = "88" + eContact1FromDB;
-                                    String eContact2FromDB = snapshot.child(username).child("emergencyContact2").getValue(String.class);
-                                    String phoneNumber2 = "88" + eContact2FromDB;
+                                    String phoneNumber = "+88" + eContact1FromDB;
 
+                                    Log.d(TAG, "WE GOT THE NUMBER" + phoneNumber );
+                                    String eContact2FromDB = snapshot.child(username).child("emergencyContact2").getValue(String.class);
+                                    String phoneNumber2 = "+88" + eContact2FromDB;
+
+                                    Log.d(TAG, "WE GOT THE other NUMBER" + phoneNumber );
                                     String dangerMessage = "**User is in DANGER**\n";
                                     String link = "\nLink = https://www.google.com/maps/search/?api=1&query="
                                             +addresses.get(0).getLatitude() + "," + addresses.get(0).getLongitude();
@@ -179,17 +233,41 @@ public class emergencyButton extends AppCompatActivity implements NavigationView
                                             "\nCountry = " + addresses.get(0).getCountryName() +
                                             "\nLatitude = " + addresses.get(0).getLatitude() +
                                             "\nLongitude = " + addresses.get(0).getLongitude() + link;
-                                    SmsManager smsManager = SmsManager.getDefault();
-                                    smsManager.sendTextMessage(phoneNumber, null, message, null, null);
-                                    SmsManager smsManager2 = SmsManager.getDefault();
-                                    smsManager2.sendTextMessage(phoneNumber2, null, message, null, null);
-                                    SmsManager smsManager3 = SmsManager.getDefault();
-                                    smsManager3.sendTextMessage("8801881485160", null, message, null, null);
+                                    Log.d(TAG, "WE GOT THE message" + message );
 
+
+                                    SmsManager sms = SmsManager.getDefault();
+                                    ArrayList<String> parts = sms.divideMessage(message);
+                                    for (String part : parts) {
+                                        sms.sendTextMessage(phoneNumber, null, part, null, null);
+                                    }
+
+
+                                    SmsManager smsManager2 = SmsManager.getDefault();
+
+                                    for (String part : parts) {
+                                        smsManager2.sendTextMessage(phoneNumber2, null, part, null, null);
+                                    }
+
+
+                                    SmsManager smsManager3 = SmsManager.getDefault();
+
+                                    for (String part : parts) {
+                                        smsManager3.sendTextMessage("+8801611391192", null, part, null, null);
+                                    }
+
+
+                                    Log.d(TAG, "We passed the code for sending the sms");
+                                    Context context = getApplicationContext();
+                                    Toast toast = Toast.makeText(context, "Message has been sent", Toast.LENGTH_SHORT);
+                                    toast.show();
 
 
                                 }
                                 else {
+                                    Context context = getApplicationContext();
+                                    Toast toast = Toast.makeText(context, "Unable to send message", Toast.LENGTH_SHORT);
+                                    toast.show();
 
                                 }
                             }
@@ -281,46 +359,5 @@ public class emergencyButton extends AppCompatActivity implements NavigationView
     public void onPointerCaptureChanged(boolean hasCapture) {
 
     }
-   /* public void logout(View view){
-        //FirebaseAuth.getInstance().signOut();
-        startActivity(new Intent(getApplicationContext(),MainActivity.class));
-        finish();
-    }*/
-   /* @Override
-    public boolean dispatchKeyEvent(KeyEvent event) {
-        int action, keycode;
-        action= event.getAction();
-        keycode = event.getKeyCode();
-        switch (keycode)
-        {
-            case KeyEvent.KEYCODE_VOLUME_UP:
-            {
-                if(KeyEvent.ACTION_UP == action)
-                {
-                    count++;
-                    if(count == 3)
-                    {
-                        ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.SEND_SMS}, PackageManager.PERMISSION_GRANTED);
-                        ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, PackageManager.PERMISSION_GRANTED);
-                        getLocation();
-                        List<Address> addresses = geocoder.getFromLocation(
-                                location.getLatitude(), location.getLongitude(), 1
-                        );
-                        String phoneNumber = "99999";
-                        String dangerMessage = "**User is in DANGER**\n";
-                        String link = "\nLink = https://www.google.com/maps/search/?api=1&query="
-                                +addresses.get(0).getLatitude() + "," + addresses.get(0).getLongitude();
-                        String message = dangerMessage + "Address = " + addresses.get(0).getAddressLine(0) +
-                                "\nLocality = " + addresses.get(0).getLocality() +
-                                "\nCountry = " + addresses.get(0).getCountryName() +
-                                "\nLatitude = " + addresses.get(0).getLatitude() +
-                                "\nLongitude = " + addresses.get(0).getLongitude() + link;
-                        SmsManager smsManager = SmsManager.getDefault();
-                        smsManager.sendTextMessage(phoneNumber, null, message, null, null);
-                    }
-                }
-            }
-        }
-        return super.dispatchKeyEvent(event);
-    }*/
+
 }
