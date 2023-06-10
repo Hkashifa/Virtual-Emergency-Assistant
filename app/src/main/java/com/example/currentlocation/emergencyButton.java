@@ -145,6 +145,7 @@ public class emergencyButton extends AppCompatActivity implements NavigationView
             }
         });
     }
+
     private boolean hasPermissions(Context context, String... PERMISSIONS) {
 
         if (context != null && PERMISSIONS != null) {
