@@ -16,6 +16,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -146,6 +147,73 @@ public class emergencyButton extends AppCompatActivity implements NavigationView
         });
     }
 
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event){
+
+        int action, keycode;
+
+        action = event.getAction();
+        keycode = event.getKeyCode();
+
+        switch(keycode){
+
+            case KeyEvent.KEYCODE_VOLUME_UP:
+            {
+                if(KeyEvent.ACTION_UP == action)
+                {
+                    count++;
+                   if( count == 3 ) {
+                       Toast.makeText(emergencyButton.this,
+                               "Alert Sent", Toast.LENGTH_SHORT).show();
+
+                       if (!hasPermissions(emergencyButton.this, PERMISSIONS)) {
+
+                           ActivityCompat.requestPermissions(emergencyButton.this, PERMISSIONS, 1);
+                       }
+
+
+                       getLocation();
+                   }
+
+                   if(count > 3)
+                   {
+                       count = 0;
+                   }break;
+                }
+                break;
+            }
+            case KeyEvent.KEYCODE_VOLUME_DOWN:
+            {
+                if(KeyEvent.ACTION_DOWN == action)
+                {
+
+                    count++;
+                    if( count == 3 ) {
+                        Toast.makeText(emergencyButton.this,
+                                "Alert Sent", Toast.LENGTH_SHORT).show();
+
+                        if (!hasPermissions(emergencyButton.this, PERMISSIONS)) {
+
+                            ActivityCompat.requestPermissions(emergencyButton.this, PERMISSIONS, 1);
+                        }
+
+
+                        getLocation();
+                    }
+
+                    if(count > 3)
+                    {
+                        count = 0;
+                    }break;
+
+                }
+                break;
+            }
+
+
+        }
+        return super.dispatchKeyEvent(event);
+    }
     private boolean hasPermissions(Context context, String... PERMISSIONS) {
 
         if (context != null && PERMISSIONS != null) {
